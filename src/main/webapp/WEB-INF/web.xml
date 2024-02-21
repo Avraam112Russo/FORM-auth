@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+
+    
+    <error-page>
+        <location>/ForbiddenPage.jsp</location>
+        <error-code>403</error-code>
+    </error-page>
+    <error-page>
+        <location>/NotFound.jsp</location>
+        <error-code>404</error-code>
+    </error-page>
+
+
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/LoginPage.jsp</form-login-page>
+            <form-error-page>/Errorpage.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- these roles we manually setup in file apache tomcat/conf/tomcatroles -->
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Some secure name</web-resource-name>
+            <url-pattern>/restricted/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+</web-app>
